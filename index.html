@@ -24,8 +24,12 @@
     .hero h1 { font-size: 3rem; color: var(--gold); margin-bottom: 5px; letter-spacing: 2px; }
     .hero p { color: #aaa; font-size: 1.1rem; }
 
-    /* الإضافات الجديدة */
-    .rating { color: var(--gold); font-size: 1.2rem; margin: 5px 0; }
+    /* تنسيق نظام النجوم الجديد */
+    .star-rating { cursor: pointer; font-size: 30px; display: flex; justify-content: center; direction: ltr; margin: 10px 0; }
+    .star { color: #555; transition: color 0.2s; }
+    .star.active { color: var(--gold); }
+    #rating-result { color: var(--gold); font-weight: bold; margin-bottom: 15px; }
+
     .contact-info { color: #888; margin-bottom: 20px; font-size: 0.95rem; }
 
     .home-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; perspective: 1000px; margin-bottom: 30px; }
@@ -59,7 +63,6 @@
     .page::-webkit-scrollbar { width: 6px; }
     .page::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 10px; }
 
-    /* تذييل الصفحة */
     .footer-credit { position: fixed; bottom: 10px; width: 100%; text-align: center; color: #444; font-size: 0.8rem; z-index: 2; pointer-events: none; }
 
     @media (max-width: 600px) { .home-buttons { grid-template-columns: 1fr; } }
@@ -76,8 +79,16 @@
         <p>مرحباً بكم في تجربة التذوق الفاخرة</p>
       </div>
       
-      <!-- التقييم ومعلومات الاتصال -->
-      <div class="rating">تقييم العملاء: ★★★★★ (5)</div>
+      <!-- نظام التقييم التفاعلي -->
+      <div class="star-rating" id="star-rating">
+        <span class="star" data-value="1">★</span>
+        <span class="star" data-value="2">★</span>
+        <span class="star" data-value="3">★</span>
+        <span class="star" data-value="4">★</span>
+        <span class="star" data-value="5">★</span>
+      </div>
+      <p id="rating-result">قيمنا: 0 من 5</p>
+
       <div class="contact-info">📞 0123 456 7890 | 📧 contact@prime.com</div>
 
       <div class="home-buttons">
@@ -98,6 +109,18 @@
   <div class="footer-credit">Produced by Yousef Abdelraheem</div>
 
   <script>
+    // كود التقييم
+    document.querySelectorAll('.star').forEach(star => {
+      star.addEventListener('click', function() {
+        const value = this.getAttribute('data-value');
+        document.querySelectorAll('.star').forEach((s, index) => {
+          s.classList.toggle('active', index < value);
+        });
+        document.getElementById('rating-result').innerText = "قيمنا: " + value + " من 5";
+      });
+    });
+
+    // كود الموقع الأساسي
     const menuData = {
       pizza: [
         {name: "مارجريتا إيطالي", price: 120}, {name: "ببروني سوبريم", price: 160}, {name: "باربيكيو تشيكن", price: 170}, {name: "ميت لافرز", price: 190},
