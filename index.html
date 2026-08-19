@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PRIME & SLICE</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-color: #0b0c10;
+      --gold: #d4af37;
+      --card-bg: rgba(25, 27, 32, 0.95);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; }
+    body { background-color: var(--bg-color); color: #fff; min-height: 100vh; overflow-x: hidden; }
+
+    #canvas-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
+    .container { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; padding: 20px 20px; text-align: center; }
+
+    .hero { margin-bottom: 20px; }
+    .hero h1 { font-size: 3rem; color: var(--gold); margin-bottom: 5px; letter-spacing: 2px; }
+    .hero p { color: #aaa; font-size: 1.1rem; }
+
+    /* الإضافات الجديدة */
+    .rating { color: var(--gold); font-size: 1.2rem; margin: 5px 0; }
+    .contact-info { color: #888; margin-bottom: 20px; font-size: 0.95rem; }
+
+    .home-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; perspective: 1000px; margin-bottom: 30px; }
+    
+    .btn-3d {
+      padding: 25px 15px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #000;
+      background: linear-gradient(to bottom, #d4af37, #b8860b);
+      border: none;
+      border-radius: 15px;
+      cursor: pointer;
+      box-shadow: 0 8px 0 #8b6508;
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.1s;
+      will-change: transform;
+    }
+    
+    .btn-3d:active { transform: translateY(8px) scale(1) !important; box-shadow: 0 0 0 #8b6508 !important; }
+
+    .page { display: none; background: var(--card-bg); padding: 25px; border-radius: 20px; border: 1px solid var(--gold); max-height: 70vh; overflow-y: auto; }
+    .page.active { display: block; animation: slideUp 0.4s ease; }
+    @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+
+    .page h2 { color: var(--gold); margin-bottom: 20px; border-bottom: 2px solid rgba(212, 175, 55, 0.3); padding-bottom: 8px; }
+    .back-btn { margin-top: 20px; background: transparent; color: var(--gold); border: 1px solid var(--gold); padding: 10px 25px; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; transition: 0.3s; }
+    .back-btn:hover { background: var(--gold); color: #000; }
+    
+    .menu-item { display: flex; justify-content: space-between; padding: 12px 5px; border-bottom: 1px solid rgba(255,255,255,0.08); text-align: right; }
+    .menu-item span:last-child { color: var(--gold); font-weight: bold; }
+    .page::-webkit-scrollbar { width: 6px; }
+    .page::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 10px; }
+
+    /* تذييل الصفحة */
+    .footer-credit { position: fixed; bottom: 10px; width: 100%; text-align: center; color: #444; font-size: 0.8rem; z-index: 2; pointer-events: none; }
+
+    @media (max-width: 600px) { .home-buttons { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+  <div id="canvas-container"></div>
+
+  <div class="container">
+    <div id="home" class="page active">
+      <div class="hero">
+        <h1>PRIME & SLICE</h1>
+        <p>مرحباً بكم في تجربة التذوق الفاخرة</p>
+      </div>
+      
+      <!-- التقييم ومعلومات الاتصال -->
+      <div class="rating">تقييم العملاء: ★★★★★ (5)</div>
+      <div class="contact-info">📞 0123 456 7890 | 📧 contact@prime.com</div>
+
+      <div class="home-buttons">
+        <button class="btn-3d" data-hover="false" onclick="showPage('pizza')">🍕 البيتزا</button>
+        <button class="btn-3d" data-hover="false" onclick="showPage('shawarma')">🥙 الشاورما</button>
+        <button class="btn-3d" data-hover="false" onclick="showPage('crepe')">🌯 الكريب</button>
+        <button class="btn-3d" data-hover="false" onclick="showPage('drinks')">🍹 المشروبات</button>
+      </div>
+    </div>
+
+    <!-- الصفحات -->
+    <div id="pizza" class="page"><h2>🍕 قائمة البيتزا</h2><div id="pizza-list"></div><button class="back-btn" onclick="showPage('home')">العودة</button></div>
+    <div id="shawarma" class="page"><h2>🥙 قائمة الشاورما</h2><div id="shawarma-list"></div><button class="back-btn" onclick="showPage('home')">العودة</button></div>
+    <div id="crepe" class="page"><h2>🌯 قائمة الكريب</h2><div id="crepe-list"></div><button class="back-btn" onclick="showPage('home')">العودة</button></div>
+    <div id="drinks" class="page"><h2>🍹 المشروبات</h2><div id="drinks-list"></div><button class="back-btn" onclick="showPage('home')">العودة</button></div>
+  </div>
+
+  <div class="footer-credit">Produced by Yousef Abdelraheem</div>
+
+  <script>
+    const menuData = {
+      pizza: [
+        {name: "مارجريتا إيطالي", price: 120}, {name: "ببروني سوبريم", price: 160}, {name: "باربيكيو تشيكن", price: 170}, {name: "ميت لافرز", price: 190},
+        {name: "سي فود سوبريم", price: 220}, {name: "أربع أجبان", price: 150}, {name: "خضروات طازجة", price: 130}, {name: "دجاج رانش", price: 180},
+        {name: "سجق شرقي", price: 165}, {name: "بسطرمة فاخرة", price: 175}, {name: "تونة بالمشروم", price: 155}, {name: "جمبري رانش", price: 240},
+        {name: "بيتزا شاورما دجاج", price: 185}, {name: "بيتزا شاورما لحم", price: 205}, {name: "ميكس سجق ودجاج", price: 195}, {name: "بيتزا هاوايان", price: 150},
+        {name: "بريميم الذهبية", price: 230}, {name: "أطراف جبنة", price: 210}, {name: "مشروم لافرز", price: 145}, {name: "سبايسي إنفيرنو", price: 190}
+      ],
+      shawarma: [
+        {name: "شاورما دجاج صاج", price: 70}, {name: "شاورما لحم صاج", price: 90}, {name: "وجبة عربي دجاج", price: 110}, {name: "وجبة عربي لحم", price: 130},
+        {name: "فتة دجاج", price: 95}, {name: "فتة لحم", price: 115}, {name: "فتة ميكس", price: 125}, {name: "موتزاريلا دجاج", price: 85},
+        {name: "ساندوتش دبل دجاج", price: 100}, {name: "ساندوتش دبل لحم", price: 120}, {name: "بوكس عائلي", price: 250}, {name: "فرانسيسكو دجاج", price: 80},
+        {name: "صاروخ كينج", price: 105}, {name: "لحم بدبس الرمان", price: 95}, {name: "إكسترا ثومية", price: 75}, {name: "طبق دجاج فرنسي", price: 140},
+        {name: "طبق لحم فرنسي", price: 160}, {name: "شاورما كيتو", price: 85}, {name: "سبايسي بركان", price: 80}, {name: "وجبة الميكس الملكية", price: 170}
+      ],
+      crepe: [
+        {name: "كريب بانيه", price: 75}, {name: "كريب زنجر حار", price: 85}, {name: "كريب ميكس أجبان", price: 70}, {name: "كريب هوت دوج", price: 65},
+        {name: "كريب تونة مايو", price: 80}, {name: "كريب سوسيس", price: 70}, {name: "كريب شاورما دجاج", price: 85}, {name: "كريب شاورما لحم", price: 95},
+        {name: "كريب كرسبي", price: 80}, {name: "كريب سي فود", price: 110}, {name: "كريب بطاطس", price: 50}, {name: "كريب كبدة", price: 65},
+        {name: "كريب نوتيلا موز", price: 60}, {name: "كريب لوتس", price: 70}, {name: "كريب فراولة شوكو", price: 65}, {name: "كريب أوريو", price: 55},
+        {name: "ميكس شوكولاتة", price: 75}, {name: "عسل ومكسرات", price: 70}, {name: "كينج شوكولاتة", price: 80}, {name: "كريب سوبريم خاص", price: 120}
+      ],
+      drinks: [
+        {name: "مانجو فريش", price: 45}, {name: "فراولة بلدي", price: 40}, {name: "جوافة لبن", price: 35}, {name: "كيوي وموز", price: 50},
+        {name: "ليمون نعناع", price: 30}, {name: "كوكتيل استوائي", price: 55}, {name: "آيس كريم فانيليا", price: 40}, {name: "آيس كريم شوكو", price: 40},
+        {name: "آيس كريم أوريو", price: 50}, {name: "ميلك شيك كراميل", price: 55}, {name: "ميلك شيك توت", price: 55}, {name: "موهيتو بلو", price: 45},
+        {name: "موهيتو رمان", price: 45}, {name: "برتقال فريش", price: 35}, {name: "أناناس فريش", price: 50}, {name: "أفوكادو عسل", price: 70},
+        {name: "آيس كافيه", price: 45}, {name: "سموذي بطيخ", price: 40}, {name: "تشيز كيك مثلج", price: 60}, {name: "كوكتيل الملوكي", price: 75}
+      ]
+    };
+
+    for (let key in menuData) {
+      let html = '';
+      menuData[key].forEach(item => {
+        html += `<div class="menu-item"><span>${item.name}</span> <span>${item.price} ج.م</span></div>`;
+      });
+      document.getElementById(key+'-list').innerHTML = html;
+    }
+
+    function showPage(pageId) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById(pageId).classList.add('active');
+    }
+
+    const buttons = document.querySelectorAll('.btn-3d');
+    buttons.forEach(btn => {
+      btn.addEventListener('mouseenter', () => btn.dataset.hover = "true");
+      btn.addEventListener('mouseleave', () => btn.dataset.hover = "false");
+    });
+
+    function handleMove(e) {
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      const mouseX = (clientX / window.innerWidth - 0.5) * 2;
+      const mouseY = (clientY / window.innerHeight - 0.5) * 2;
+
+      buttons.forEach(btn => {
+        const moveX = mouseX * 10;
+        const moveY = mouseY * 10;
+        const rotateX = -mouseY * 10;
+        const rotateY = mouseX * 10;
+        const scale = btn.dataset.hover === "true" ? 1.15 : 1;
+        btn.style.transform = `translate3d(${moveX}px, ${moveY}px, 0px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(${scale})`;
+      });
+
+      if (typeof shape !== 'undefined') {
+        shape.rotation.y = mouseX * 0.5;
+        shape.rotation.x = mouseY * 0.5;
+      }
+    }
+
+    window.addEventListener('mousemove', handleMove);
+    window.addEventListener('touchmove', handleMove);
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.getElementById('canvas-container').appendChild(renderer.domElement);
+    camera.position.z = 5;
+    const geometry = new THREE.TorusKnotGeometry(1.5, 0.3, 100, 16);
+    const material = new THREE.MeshStandardMaterial({ color: 0xd4af37, wireframe: true, metalness: 0.8 });
+    const shape = new THREE.Mesh(geometry, material);
+    scene.add(shape);
+    scene.add(new THREE.AmbientLight(0xffffff, 0.6));
+    function animate() {
+      requestAnimationFrame(animate);
+      shape.rotation.y += 0.005;
+      renderer.render(scene, camera);
+    }
+    animate();
+  </script>
+</body>
+</html>
