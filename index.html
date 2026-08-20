@@ -105,6 +105,30 @@
       font-size: 1rem;
     }
 
+    /* أنماط أزرار الأحجام للبيتزا */
+    .size-selector {
+      display: flex;
+      gap: 6px;
+      margin: 8px 0;
+    }
+
+    .size-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid var(--gold);
+      color: #fff;
+      border-radius: 6px;
+      padding: 3px 10px;
+      font-size: 0.85rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .size-btn.active {
+      background: var(--gold);
+      color: #000;
+    }
+
     .page::-webkit-scrollbar { width: 6px; }
     .page::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 10px; }
 
@@ -228,26 +252,26 @@
 
     const menuData = {
       pizza: [
-        { name: {ar: "مارجريتا إيطالي", en: "Italian Margherita"}, price: 120, img: "https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?auto=format&fit=crop&w=500&q=80" },
-        { name: {ar: "ببروني سوبريم", en: "Pepperoni Supreme"}, price: 160, img: "https://images.pexels.com/photos/4109111/pexels-photo-4109111.jpeg?auto=compress&cs=tinysrgb&w=500" },
-        { name: {ar: "باربيكيو تشيكن", en: "BBQ Chicken"}, price: 170, img: "https://cdn.pixabay.com/photo/2017/12/09/08/18/pizza-3007395_1280.jpg" },
-        { name: {ar: "ميت لافرز", en: "Meat Lovers"}, price: 190, img: "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?auto=format&fit=crop&w=500&q=80" },
-        { name: {ar: "سي فود سوبريم", en: "Seafood Supreme"}, price: 220, img: "https://images.pexels.com/photos/1146760/pexels-photo-1146760.jpeg?auto=compress&cs=tinysrgb&w=500" },
-        { name: {ar: "أربع أجبان", en: "Four Cheese"}, price: 150, img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=500&q=80" },
-        { name: {ar: "خضروات طازجة", en: "Fresh Vegetables"}, price: 130, img: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=500&q=80" },
-        { name: {ar: "دجاج رانش", en: "Chicken Ranch"}, price: 180, img: "https://images.pexels.com/photos/2619967/pexels-photo-2619967.jpeg?auto=compress&cs=tinysrgb&w=500" },
-        { name: {ar: "سجق شرقي", en: "Oriental Sausage"}, price: 165, img: "https://cdn.pixabay.com/photo/2017/01/22/19/20/pizza-2000615_1280.jpg" },
-        { name: {ar: "بسطرمة فاخرة", en: "Premium Pastrami"}, price: 175, img: "https://images.unsplash.com/photo-1571407970349-bc81e7e96d47?auto=format&fit=crop&w=500&q=80" },
-        { name: {ar: "تونة بالمشروم", en: "Tuna & Mushroom"}, price: 155, img: "https://images.pexels.com/photos/825661/pexels-photo-825661.jpeg?auto=compress&cs=tinysrgb&w=500" },
-        { name: {ar: "جمبري رانش", en: "Shrimp Ranch"}, price: 240, img: "https://cdn.pixabay.com/photo/2016/04/21/22/50/pizza-1344720_1280.jpg" },
-        { name: {ar: "بيتزا شاورما دجاج", en: "Chicken Shawarma Pizza"}, price: 185, img: "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?auto=format&fit=crop&w=500&q=80" },
-        { name: {ar: "بيتزا شاورما لحم", en: "Beef Shawarma Pizza"}, price: 205, img: "https://images.pexels.com/photos/1566837/pexels-photo-1566837.jpeg?auto=compress&cs=tinysrgb&w=500" },
-        { name: {ar: "ميكس سجق ودجاج", en: "Sausage & Chicken Mix"}, price: 195, img: "https://cdn.pixabay.com/photo/2017/09/30/15/10/pizza-2802332_1280.jpg" },
-        { name: {ar: "بيتزا هاوايان", en: "Hawaiian Pizza"}, price: 150, img: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=500&q=80" },
-        { name: {ar: "بريميم الذهبية", en: "Golden Premium"}, price: 230, img: "https://images.pexels.com/photos/708587/pexels-photo-708587.jpeg?auto=compress&cs=tinysrgb&w=500" },
-        { name: {ar: "أطراف جبنة", en: "Stuffed Crust"}, price: 210, img: "https://cdn.pixabay.com/photo/2018/04/11/03/13/food-3309418_1280.jpg" },
-        { name: {ar: "مشروم لافرز", en: "Mushroom Lovers"}, price: 145, img: "https://images.unsplash.com/photo-1506354666786-959d6d497f1a?auto=format&fit=crop&w=500&q=80" },
-        { name: {ar: "سبايسي إنفيرنو", en: "Spicy Inferno"}, price: 190, img: "https://images.pexels.com/photos/365459/pexels-photo-365459.jpeg?auto=compress&cs=tinysrgb&w=500" }
+        { id: "p1", name: {ar: "مارجريتا إيطالي", en: "Italian Margherita"}, basePrice: 90, img: "https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?auto=format&fit=crop&w=500&q=80" },
+        { id: "p2", name: {ar: "ببروني سوبريم", en: "Pepperoni Supreme"}, basePrice: 120, img: "https://images.pexels.com/photos/4109111/pexels-photo-4109111.jpeg?auto=compress&cs=tinysrgb&w=500" },
+        { id: "p3", name: {ar: "باربيكيو تشيكن", en: "BBQ Chicken"}, basePrice: 130, img: "https://cdn.pixabay.com/photo/2017/12/09/08/18/pizza-3007395_1280.jpg" },
+        { id: "p4", name: {ar: "ميت لافرز", en: "Meat Lovers"}, basePrice: 140, img: "https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?auto=format&fit=crop&w=500&q=80" },
+        { id: "p5", name: {ar: "سي فود سوبريم", en: "Seafood Supreme"}, basePrice: 160, img: "https://images.pexels.com/photos/1146760/pexels-photo-1146760.jpeg?auto=compress&cs=tinysrgb&w=500" },
+        { id: "p6", name: {ar: "أربع أجبان", en: "Four Cheese"}, basePrice: 110, img: "https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=500&q=80" },
+        { id: "p7", name: {ar: "خضروات طازجة", en: "Fresh Vegetables"}, basePrice: 100, img: "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=500&q=80" },
+        { id: "p8", name: {ar: "دجاج رانش", en: "Chicken Ranch"}, basePrice: 135, img: "https://images.pexels.com/photos/2619967/pexels-photo-2619967.jpeg?auto=compress&cs=tinysrgb&w=500" },
+        { id: "p9", name: {ar: "سجق شرقي", en: "Oriental Sausage"}, basePrice: 125, img: "https://cdn.pixabay.com/photo/2017/01/22/19/20/pizza-2000615_1280.jpg" },
+        { id: "p10", name: {ar: "بسطرمة فاخرة", en: "Premium Pastrami"}, basePrice: 130, img: "https://images.unsplash.com/photo-1571407970349-bc81e7e96d47?auto=format&fit=crop&w=500&q=80" },
+        { id: "p11", name: {ar: "تونة بالمشروم", en: "Tuna & Mushroom"}, basePrice: 115, img: "https://images.pexels.com/photos/825661/pexels-photo-825661.jpeg?auto=compress&cs=tinysrgb&w=500" },
+        { id: "p12", name: {ar: "جمبري رانش", en: "Shrimp Ranch"}, basePrice: 170, img: "https://cdn.pixabay.com/photo/2016/04/21/22/50/pizza-1344720_1280.jpg" },
+        { id: "p13", name: {ar: "بيتزا شاورما دجاج", en: "Chicken Shawarma Pizza"}, basePrice: 135, img: "https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?auto=format&fit=crop&w=500&q=80" },
+        { id: "p14", name: {ar: "بيتزا شاورما لحم", en: "Beef Shawarma Pizza"}, basePrice: 150, img: "https://images.pexels.com/photos/1566837/pexels-photo-1566837.jpeg?auto=compress&cs=tinysrgb&w=500" },
+        { id: "p15", name: {ar: "ميكس سجق ودجاج", en: "Sausage & Chicken Mix"}, basePrice: 145, img: "https://cdn.pixabay.com/photo/2017/09/30/15/10/pizza-2802332_1280.jpg" },
+        { id: "p16", name: {ar: "بيتزا هاوايان", en: "Hawaiian Pizza"}, basePrice: 110, img: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=500&q=80" },
+        { id: "p17", name: {ar: "بريميم الذهبية", en: "Golden Premium"}, basePrice: 165, img: "https://images.pexels.com/photos/708587/pexels-photo-708587.jpeg?auto=compress&cs=tinysrgb&w=500" },
+        { id: "p18", name: {ar: "أطراف جبنة", en: "Stuffed Crust"}, basePrice: 155, img: "https://cdn.pixabay.com/photo/2018/04/11/03/13/food-3309418_1280.jpg" },
+        { id: "p19", name: {ar: "مشروم لافرز", en: "Mushroom Lovers"}, price: 105, img: "https://images.unsplash.com/photo-1506354666786-959d6d497f1a?auto=format&fit=crop&w=500&q=80", basePrice: 105 },
+        { id: "p20", name: {ar: "سبايسي إنفيرنو", en: "Spicy Inferno"}, basePrice: 140, img: "https://images.pexels.com/photos/365459/pexels-photo-365459.jpeg?auto=compress&cs=tinysrgb&w=500" }
       ],
       shawarma: [
         { name: {ar: "شاورما دجاج صاج", en: "Saj Chicken Shawarma"}, price: 70, img: "https://images.unsplash.com/photo-1561651823-34feb02250e4?auto=format&fit=crop&w=500&q=80" },
@@ -296,7 +320,7 @@
       drinks: [
         { name: {ar: "مانجو فريش", en: "Fresh Mango"}, price: 45, img: "https://images.unsplash.com/photo-1546173159-315724a31696?auto=format&fit=crop&w=500&q=80" },
         { name: {ar: "فراولة بلدي", en: "Fresh Strawberry"}, price: 40, img: "https://images.unsplash.com/photo-1553530666-ba11a7da3888?auto=format&fit=crop&w=500&q=80" },
-        { name: {ar: "جوافة لبن", en: "Guava with Milk"}, price: 35, img: "https://images.unsplash.com/photo-1525385133512-2f3bdd039054?auto=format&fit=crop&w=500&q=80" },
+        { name: {ar: "جوافة لبن", en: "Guava with Milk"}, price: 35, img: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=500&q=80" },
         { name: {ar: "كيوي وموز", en: "Kiwi Banana"}, price: 50, img: "https://images.unsplash.com/photo-1610970881699-44a5587cabec?auto=format&fit=crop&w=500&q=80" },
         { name: {ar: "ليمون نعناع", en: "Lemon Mint"}, price: 30, img: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=500&q=80" },
         { name: {ar: "كوكتيل استوائي", en: "Tropical Cocktail"}, price: 55, img: "https://images.unsplash.com/photo-1536935338788-846bb9981813?auto=format&fit=crop&w=500&q=80" },
@@ -317,20 +341,48 @@
       ]
     };
 
+    function setPizzaSize(pizzaId, size, price, btn) {
+      document.getElementById(`price-${pizzaId}`).innerText = `${price} ${translations[currentLang].currency}`;
+      const parent = btn.parentElement;
+      parent.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
     function renderMenu() {
-      for (let key in menuData) {
+      // عرض البيتزا مع خيارات الأحجام
+      let pizzaHtml = '';
+      menuData.pizza.forEach(item => {
+        const pSmall = item.basePrice;
+        const pMedium = item.basePrice + 30;
+        const pLarge = item.basePrice + 60;
+
+        pizzaHtml += `
+          <div class="menu-card">
+            <img class="item-img-large" src="${item.img}" alt="${item.name[currentLang]}">
+            <span class="item-name-large">${item.name[currentLang]}</span>
+            <div class="size-selector">
+              <button class="size-btn active" onclick="setPizzaSize('${item.id}', 'S', ${pSmall}, this)">S</button>
+              <button class="size-btn" onclick="setPizzaSize('${item.id}', 'M', ${pMedium}, this)">M</button>
+              <button class="size-btn" onclick="setPizzaSize('${item.id}', 'L', ${pLarge}, this)">L</button>
+            </div>
+            <span class="price" id="price-${item.id}">${pSmall} ${translations[currentLang].currency}</span>
+          </div>`;
+      });
+      document.getElementById('pizza-list').innerHTML = pizzaHtml;
+
+      // باقي الأقسام
+      ['shawarma', 'crepe', 'drinks'].forEach(key => {
         let html = '';
         menuData[key].forEach(item => {
-          const imgTag = item.img ? `<img class="item-img-large" src="${item.img}" alt="${item.name[currentLang]}">` : '';
           html += `
             <div class="menu-card">
-              ${imgTag}
+              <img class="item-img-large" src="${item.img}" alt="${item.name[currentLang]}">
               <span class="item-name-large">${item.name[currentLang]}</span>
               <span class="price">${item.price} ${translations[currentLang].currency}</span>
             </div>`;
         });
         document.getElementById(key+'-list').innerHTML = html;
-      }
+      });
     }
 
     function setLanguage(lang) {
