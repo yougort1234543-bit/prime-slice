@@ -11,7 +11,8 @@
     :root {
       --bg-color: #0b0c10;
       --gold: #d4af37;
-      --card-bg: rgba(25, 27, 32, 0.95);
+      /* تم تقليل عتمة الخلفية هنا من 0.95 إلى 0.45 لتصبح أكثر شفافية وتظهر الشوكة بوضوح */
+      --card-bg: rgba(25, 27, 32, 0.45);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; }
@@ -49,7 +50,8 @@
     
     .btn-3d:active { transform: translateY(8px) scale(1) !important; box-shadow: 0 0 0 #8b6508 !important; }
 
-    .page { display: none; background: var(--card-bg); padding: 25px; border-radius: 20px; border: 1px solid var(--gold); max-height: 70vh; overflow-y: auto; }
+    /* تم إضافة خاصية backdrop-filter لإضافة تأثير ضبابي جمالي وجعل النص مقروءاً رغم الشفافية العالية */
+    .page { display: none; background: var(--card-bg); backdrop-filter: blur(8px); padding: 25px; border-radius: 20px; border: 1px solid var(--gold); max-height: 70vh; overflow-y: auto; }
     .page.active { display: block; animation: slideUp 0.4s ease; }
     @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
 
@@ -418,7 +420,6 @@
         });
         document.getElementById('rating-result').innerText = translations[currentLang].rating + currentRating + translations[currentLang].outOf;
         
-        // إظهار نافذة منبثقة تتطلب الضغط على OK
         alert(translations[currentLang].thankYouAlert);
       });
     });
@@ -458,19 +459,16 @@
     window.addEventListener('mousemove', handleMove);
     window.addEventListener('touchmove', handleMove);
 
-    // --- إعداد المشهد والشوك والسكاكين 3D البارزة جداً مع إضاءة قوية ---
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.getElementById('canvas-container').appendChild(renderer.domElement);
     
-    // تقريب الكاميرا لتبدو العناصر أكبر وأوضح (من 6 إلى 4.2)
     camera.position.z = 4.2;
 
     const cutleryGroup = new THREE.Group();
 
-    // خامة ذهبية برّاقة مع عكس قوي للإضاءة
     const goldMaterial = new THREE.MeshStandardMaterial({ 
       color: 0xffd700, 
       metalness: 0.95, 
@@ -478,22 +476,18 @@
       emissive: 0x443300
     });
 
-    // 1. بناء الشوكة (Fork) بحجم أكبر وأسمك
     const forkGroup = new THREE.Group();
     
-    // مقبض الشوكة
     const forkHandleGeo = new THREE.CylinderGeometry(0.1, 0.06, 3.2, 16);
     const forkHandle = new THREE.Mesh(forkHandleGeo, goldMaterial);
     forkHandle.position.y = -0.6;
     forkGroup.add(forkHandle);
 
-    // قاعدة رأس الشوكة
     const forkBaseGeo = new THREE.BoxGeometry(0.65, 0.15, 0.1);
     const forkBase = new THREE.Mesh(forkBaseGeo, goldMaterial);
     forkBase.position.y = 1.0;
     forkGroup.add(forkBase);
 
-    // أسنان الشوكة (4 أسنان أسمك وأوضح)
     for (let i = 0; i < 4; i++) {
       const prongGeo = new THREE.CylinderGeometry(0.035, 0.035, 1.1, 12);
       const prong = new THREE.Mesh(prongGeo, goldMaterial);
@@ -501,16 +495,13 @@
       forkGroup.add(prong);
     }
 
-    // 2. بناء السكينة (Knife) بحجم أضخم وأبرز
     const knifeGroup = new THREE.Group();
     
-    // مقبض السكينة
     const knifeHandleGeo = new THREE.CylinderGeometry(0.1, 0.06, 3.2, 16);
     const knifeHandle = new THREE.Mesh(knifeHandleGeo, goldMaterial);
     knifeHandle.position.y = -0.6;
     knifeGroup.add(knifeHandle);
 
-    // شفرة السكينة العريضة
     const bladeShape = new THREE.Shape();
     bladeShape.moveTo(0, 0);
     bladeShape.lineTo(0.35, 0.4);
@@ -524,7 +515,6 @@
     blade.position.set(-0.08, 0.9, -0.03);
     knifeGroup.add(blade);
 
-    // إمالة الشوكة والسكينة
     forkGroup.position.x = -0.35;
     forkGroup.rotation.z = -Math.PI / 5;
 
@@ -535,42 +525,33 @@
     cutleryGroup.add(knifeGroup);
     scene.add(cutleryGroup);
 
-    // --- إضاءة نيون قوية ومضاعفة للبروز ---
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.9);
     scene.add(ambientLight);
 
-    // ضوء نيون ذهبي مباشر متوهج
     const glowLight = new THREE.PointLight(0xffd700, 4, 15);
     glowLight.position.set(0, 0, 3);
     scene.add(glowLight);
 
-    // ضوء إضافي من الإمام لتعزيز اللمعة
     const frontLight = new THREE.DirectionalLight(0xfff5cc, 2.5);
     frontLight.position.set(2, 4, 5);
     scene.add(frontLight);
 
-    // ضوء خلفي ملون لإبراز الحواف (Rim Light)
     const backLight = new THREE.DirectionalLight(0xd4af37, 2);
     backLight.position.set(-3, -3, -2);
     scene.add(backLight);
 
-    // حركة الدوران والتوهج (Animation Loop)
     let clock = new THREE.Clock();
     function animate() {
       requestAnimationFrame(animate);
       const time = clock.getElapsedTime();
 
-      // دوران سلس
       cutleryGroup.rotation.y += 0.01;
-
-      // تأثير النيون المتوهج بقوة
       glowLight.intensity = 3.0 + Math.sin(time * 4) * 2.0;
 
       renderer.render(scene, camera);
     }
     animate();
 
-    // ضبط حجم المشهد عند تغيير حجم الشاشة
     window.addEventListener('resize', () => {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
