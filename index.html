@@ -11,8 +11,8 @@
     :root {
       --bg-color: #0b0c10;
       --gold: #d4af37;
-      /* تم تقليل عتمة الخلفية هنا من 0.95 إلى 0.45 لتصبح أكثر شفافية وتظهر الشوكة بوضوح */
-      --card-bg: rgba(25, 27, 32, 0.45);
+      /* تم إزالة العتمة والضبابية لتصبح خلفية البطاقة أصفى وأوضح تماماً */
+      --card-bg: rgba(25, 27, 32, 0.15);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; }
@@ -50,8 +50,18 @@
     
     .btn-3d:active { transform: translateY(8px) scale(1) !important; box-shadow: 0 0 0 #8b6508 !important; }
 
-    /* تم إضافة خاصية backdrop-filter لإضافة تأثير ضبابي جمالي وجعل النص مقروءاً رغم الشفافية العالية */
-    .page { display: none; background: var(--card-bg); backdrop-filter: blur(8px); padding: 25px; border-radius: 20px; border: 1px solid var(--gold); max-height: 70vh; overflow-y: auto; }
+    /* تم إلغاء تأثير الـ Blur كلياً لرؤية الشوكة بنقاء تام */
+    .page { 
+      display: none; 
+      background: var(--card-bg); 
+      backdrop-filter: none; 
+      -webkit-backdrop-filter: none;
+      padding: 25px; 
+      border-radius: 20px; 
+      border: 1px solid var(--gold); 
+      max-height: 70vh; 
+      overflow-y: auto; 
+    }
     .page.active { display: block; animation: slideUp 0.4s ease; }
     @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
 
@@ -329,7 +339,7 @@
         { name: {ar: "كوكتيل استوائي", en: "Tropical Cocktail"}, price: 55, img: "https://images.unsplash.com/photo-1536935338788-846bb9981813?auto=format&fit=crop&w=500&q=80" },
         { name: {ar: "آيس كريم فانيليا", en: "Vanilla Ice Cream"}, price: 40, img: "https://images.unsplash.com/photo-1570197788417-0e82375c9371?auto=format&fit=crop&w=500&q=80" },
         { name: {ar: "آيس كريم شوكو", en: "Choco Ice Cream"}, price: 40, img: "https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=500&q=80" },
-        { name: {ar: "آيس كريم أوريو", en: "Oreo Ice Cream"}, price: 50, img: "https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=500&q=80" },
+        { name: {ar: "آيس كريم أوريو", en: "Oreo Ice Cream"}, price: 50, img: "https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=compress&cs=tinysrgb&w=500" },
         { name: {ar: "ميلك شيك كراميل", en: "Caramel Milkshake"}, price: 55, img: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=500&q=80" },
         { name: {ar: "ميلك شيك توت", en: "Berry Milkshake"}, price: 55, img: "https://images.unsplash.com/photo-1553787499-6f9133860278?auto=format&fit=crop&w=500&q=80" },
         { name: {ar: "موهيتو بلو", en: "Blue Mojito"}, price: 45, img: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=500&q=80" },
