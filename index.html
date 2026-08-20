@@ -105,7 +105,6 @@
       font-size: 1rem;
     }
 
-    /* أنماط أزرار الأحجام للبيتزا */
     .size-selector {
       display: flex;
       gap: 6px;
@@ -216,12 +215,14 @@
   <script>
     let currentLang = 'ar';
     let currentRating = 0;
+    let hasRated = false;
 
     const translations = {
       ar: {
         sub: "مرحباً بكم في تجربة التذوق الفاخرة",
         rating: "قيمنا: ",
         outOf: " من 5",
+        thankYou: "شكراً على تقييمك لنا! ❤️",
         pizzaBtn: "🍕 البيتزا",
         shawarmaBtn: "🥙 الشاورما",
         crepeBtn: "🌯 الكريب",
@@ -237,6 +238,7 @@
         sub: "Welcome to the premium tasting experience",
         rating: "Rate us: ",
         outOf: " of 5",
+        thankYou: "Thank you for rating us! ❤️",
         pizzaBtn: "🍕 Pizza",
         shawarmaBtn: "🥙 Shawarma",
         crepeBtn: "🌯 Crepe",
@@ -320,7 +322,7 @@
       drinks: [
         { name: {ar: "مانجو فريش", en: "Fresh Mango"}, price: 45, img: "https://images.unsplash.com/photo-1546173159-315724a31696?auto=format&fit=crop&w=500&q=80" },
         { name: {ar: "فراولة بلدي", en: "Fresh Strawberry"}, price: 40, img: "https://images.unsplash.com/photo-1553530666-ba11a7da3888?auto=format&fit=crop&w=500&q=80" },
-        { name: {ar: "جوافة لبن", en: "Guava with Milk"}, price: 35, img: "https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=500&q=80" },
+        { name: {ar: "كوب لبن أبيض", en: "White Milk Cup"}, price: 35, img: "https://images.unsplash.com/photo-1550583724-b2692b85b150?auto=format&fit=crop&w=500&q=80" },
         { name: {ar: "كيوي وموز", en: "Kiwi Banana"}, price: 50, img: "https://images.unsplash.com/photo-1610970881699-44a5587cabec?auto=format&fit=crop&w=500&q=80" },
         { name: {ar: "ليمون نعناع", en: "Lemon Mint"}, price: 30, img: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?auto=format&fit=crop&w=500&q=80" },
         { name: {ar: "كوكتيل استوائي", en: "Tropical Cocktail"}, price: 55, img: "https://images.unsplash.com/photo-1536935338788-846bb9981813?auto=format&fit=crop&w=500&q=80" },
@@ -349,7 +351,6 @@
     }
 
     function renderMenu() {
-      // عرض البيتزا مع خيارات الأحجام
       let pizzaHtml = '';
       menuData.pizza.forEach(item => {
         const pSmall = item.basePrice;
@@ -370,7 +371,6 @@
       });
       document.getElementById('pizza-list').innerHTML = pizzaHtml;
 
-      // باقي الأقسام
       ['shawarma', 'crepe', 'drinks'].forEach(key => {
         let html = '';
         menuData[key].forEach(item => {
@@ -406,7 +406,11 @@
 
       document.querySelectorAll('.back-txt').forEach(btn => btn.innerText = translations[lang].back);
 
-      document.getElementById('rating-result').innerText = translations[lang].rating + currentRating + translations[lang].outOf;
+      if (hasRated) {
+        document.getElementById('rating-result').innerText = translations[lang].thankYou;
+      } else {
+        document.getElementById('rating-result').innerText = translations[lang].rating + currentRating + translations[lang].outOf;
+      }
 
       renderMenu();
     }
@@ -414,10 +418,11 @@
     document.querySelectorAll('.star').forEach(star => {
       star.addEventListener('click', function() {
         currentRating = this.getAttribute('data-value');
+        hasRated = true;
         document.querySelectorAll('.star').forEach((s, index) => {
           s.classList.toggle('active', index < currentRating);
         });
-        document.getElementById('rating-result').innerText = translations[currentLang].rating + currentRating + translations[currentLang].outOf;
+        document.getElementById('rating-result').innerText = translations[currentLang].thankYou;
       });
     });
 
