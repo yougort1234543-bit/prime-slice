@@ -11,118 +11,123 @@
     :root {
       --bg-color: #050505;
       --gold: #d4af37;
-      --card-bg: rgba(15, 16, 20, 0.75);
+      --card-bg: rgba(20, 22, 26, 0.95);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; }
     body { background-color: var(--bg-color); color: #fff; min-height: 100vh; overflow-x: hidden; }
 
     #canvas-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
-    .container { position: relative; z-index: 1; max-width: 480px; margin: 0 auto; padding: 15px; text-align: center; }
+    .container { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; padding: 20px 20px; text-align: center; }
 
-    .hero { margin-bottom: 15px; }
-    .hero h1 { font-size: 2.2rem; color: var(--gold); margin-bottom: 2px; letter-spacing: 2px; text-shadow: 0 4px 10px rgba(0,0,0,0.9); }
-    .hero p { color: #ccc; font-size: 0.95rem; text-shadow: 0 2px 5px rgba(0,0,0,0.9); }
+    .hero { margin-bottom: 20px; }
+    .hero h1 { font-size: 3rem; color: var(--gold); margin-bottom: 5px; letter-spacing: 2px; text-shadow: 0 4px 10px rgba(0,0,0,0.8); }
+    .hero p { color: #aaa; font-size: 1.1rem; }
 
-    .star-rating { cursor: pointer; font-size: 26px; display: flex; justify-content: center; direction: ltr; margin: 5px 0; }
+    .star-rating { cursor: pointer; font-size: 30px; display: flex; justify-content: center; direction: ltr; margin: 10px 0; }
     .star { color: #555; transition: color 0.2s; }
     .star.active { color: var(--gold); }
-    #rating-result { color: var(--gold); font-weight: bold; margin-bottom: 10px; font-size: 0.9rem; }
+    #rating-result { color: var(--gold); font-weight: bold; margin-bottom: 15px; }
 
-    .contact-info { color: #aaa; margin-bottom: 15px; font-size: 0.85rem; text-shadow: 0 2px 4px #000; }
+    .contact-info { color: #888; margin-bottom: 20px; font-size: 0.95rem; }
 
-    .home-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; perspective: 1000px; margin-bottom: 20px; }
+    .home-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; perspective: 1000px; margin-bottom: 30px; }
     
     .btn-3d {
-      padding: 14px 10px;
-      font-size: 1rem;
+      padding: 22px 15px;
+      font-size: 1.2rem;
       font-weight: bold;
       color: #000;
       background: linear-gradient(to bottom, #d4af37, #b8860b);
       border: none;
-      border-radius: 12px;
+      border-radius: 15px;
       cursor: pointer;
-      box-shadow: 0 6px 0 #8b6508;
+      box-shadow: 0 8px 0 #8b6508;
       transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.1s;
       will-change: transform;
     }
     
-    .btn-3d:active { transform: translateY(6px) scale(1) !important; box-shadow: 0 0 0 #8b6508 !important; }
+    .btn-3d:active { transform: translateY(8px) scale(1) !important; box-shadow: 0 0 0 #8b6508 !important; }
 
-    .page { display: none; background: var(--card-bg); backdrop-filter: blur(8px); padding: 20px; border-radius: 18px; border: 1px solid rgba(212, 175, 55, 0.4); max-height: 75vh; overflow-y: auto; }
+    .page { display: none; background: var(--card-bg); padding: 25px; border-radius: 20px; border: 1px solid var(--gold); max-height: 70vh; overflow-y: auto; }
     .page.active { display: block; animation: slideUp 0.4s ease; }
-    @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
 
-    .page h2 { color: var(--gold); margin-bottom: 15px; border-bottom: 2px solid rgba(212, 175, 55, 0.3); padding-bottom: 6px; font-size: 1.3rem; }
-    .back-btn { margin-top: 15px; background: transparent; color: var(--gold); border: 1px solid var(--gold); padding: 8px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; transition: 0.3s; }
+    .page h2 { color: var(--gold); margin-bottom: 20px; border-bottom: 2px solid rgba(212, 175, 55, 0.3); padding-bottom: 8px; }
+    .back-btn { margin-top: 20px; background: transparent; color: var(--gold); border: 1px solid var(--gold); padding: 10px 25px; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; transition: 0.3s; }
     .back-btn:hover { background: var(--gold); color: #000; }
     
     .menu-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 20px;
       margin-bottom: 10px;
     }
 
     .menu-card {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(212, 175, 55, 0.3);
-      border-radius: 14px;
-      padding: 10px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      border-radius: 16px;
+      padding: 15px;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
+      transition: transform 0.3s, border-color 0.3s;
     }
 
+    .menu-card:hover { border-color: var(--gold); transform: translateY(-5px); }
+
     .item-img-large {
-      width: 90px;
-      height: 90px;
+      width: 140px;
+      height: 140px;
       border-radius: 50%;
       object-fit: cover;
       border: 2px solid var(--gold);
-      margin-bottom: 8px;
+      margin-bottom: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
     }
 
-    .item-name-large { font-weight: bold; font-size: 0.9rem; margin-bottom: 4px; color: #fff; }
-    .menu-card span.price { color: var(--gold); font-weight: bold; font-size: 0.85rem; }
+    .item-name-large { font-weight: bold; font-size: 1.1rem; margin-bottom: 6px; color: #fff; }
+    .menu-card span.price { color: var(--gold); font-weight: bold; font-size: 1rem; }
 
-    .size-selector { display: flex; gap: 4px; margin: 6px 0; }
+    .size-selector { display: flex; gap: 6px; margin: 8px 0; }
     .size-btn {
       background: rgba(255, 255, 255, 0.1);
       border: 1px solid var(--gold);
       color: #fff;
-      border-radius: 5px;
-      padding: 2px 6px;
-      font-size: 0.75rem;
+      border-radius: 6px;
+      padding: 3px 10px;
+      font-size: 0.85rem;
       font-weight: bold;
       cursor: pointer;
+      transition: 0.2s;
     }
     .size-btn.active { background: var(--gold); color: #000; }
 
-    .page::-webkit-scrollbar { width: 5px; }
+    .page::-webkit-scrollbar { width: 6px; }
     .page::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 10px; }
 
     .lang-switcher {
       position: fixed;
-      bottom: 25px;
+      bottom: 35px;
       left: 50%;
       transform: translateX(-50%);
       z-index: 10;
-      background: rgba(15, 16, 20, 0.9);
+      background: rgba(25, 27, 32, 0.9);
       border: 1px solid var(--gold);
-      padding: 4px 10px;
+      padding: 5px 12px;
       border-radius: 20px;
       display: flex;
-      gap: 8px;
+      gap: 10px;
     }
     .lang-btn {
       background: transparent;
       border: none;
       color: #888;
       font-weight: bold;
-      font-size: 0.85rem;
+      font-size: 0.9rem;
       cursor: pointer;
       padding: 2px 8px;
       border-radius: 10px;
@@ -130,7 +135,13 @@
     }
     .lang-btn.active { background: var(--gold); color: #000; }
 
-    .footer-credit { position: fixed; bottom: 5px; width: 100%; text-align: center; color: #666; font-size: 0.7rem; z-index: 2; pointer-events: none; }
+    .footer-credit { position: fixed; bottom: 8px; width: 100%; text-align: center; color: #555; font-size: 0.75rem; z-index: 2; pointer-events: none; }
+
+    @media (max-width: 600px) {
+      .home-buttons { grid-template-columns: 1fr; }
+      .menu-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+      .item-img-large { width: 110px; height: 110px; }
+    }
   </style>
 </head>
 <body>
@@ -297,6 +308,7 @@
       document.getElementById('title-drinks').innerText = translations[lang].drinksTitle;
 
       document.querySelectorAll('.back-txt').forEach(btn => btn.innerText = translations[lang].back);
+
       document.getElementById('rating-result').innerText = translations[lang].rating + currentRating + translations[lang].outOf;
 
       renderMenu();
@@ -331,11 +343,11 @@
       const mouseY = (clientY / window.innerHeight - 0.5) * 2;
 
       buttons.forEach(btn => {
-        const moveX = mouseX * 8;
-        const moveY = mouseY * 8;
-        const rotateX = -mouseY * 8;
-        const rotateY = mouseX * 8;
-        const scale = btn.dataset.hover === "true" ? 1.1 : 1;
+        const moveX = mouseX * 10;
+        const moveY = mouseY * 10;
+        const rotateX = -mouseY * 10;
+        const rotateY = mouseX * 10;
+        const scale = btn.dataset.hover === "true" ? 1.15 : 1;
         btn.style.transform = `translate3d(${moveX}px, ${moveY}px, 0px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(${scale})`;
       });
 
@@ -348,36 +360,41 @@
     window.addEventListener('mousemove', handleMove);
     window.addEventListener('touchmove', handleMove);
 
-    // --- إعداد المشهد الذهبي مع ضبط الحجم للأجهزة المحمولة ---
+    // --- إعداد المشهد الذهبي بالكامل (Gold 3D Set) ---
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
     const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.getElementById('canvas-container').appendChild(renderer.domElement);
 
-    camera.position.set(0, 0, 9);
+    camera.position.set(0, 0, 7.5);
 
     const mainSetGroup = new THREE.Group();
 
+    // خامة ذهبية برّاقة فاخرة تطبق على الطبق والشوكة والسكين بالكامل
     const goldMaterial = new THREE.MeshStandardMaterial({
       color: 0xd4af37,
       metalness: 0.85,
       roughness: 0.15
     });
 
-    // 1. الطبق
+    // 1. بناء الطبق الذهبي
     const plateGroup = new THREE.Group();
+    
+    // الحافة الخارجية
     const outerPlateGeo = new THREE.CylinderGeometry(2.2, 2.0, 0.15, 64);
     const outerPlate = new THREE.Mesh(outerPlateGeo, goldMaterial);
     outerPlate.rotation.x = Math.PI / 2;
     plateGroup.add(outerPlate);
 
+    // التجويف الداخلي
     const innerPlateGeo = new THREE.CylinderGeometry(1.5, 1.4, 0.1, 64);
     const innerPlate = new THREE.Mesh(innerPlateGeo, goldMaterial);
     innerPlate.rotation.x = Math.PI / 2;
     innerPlate.position.z = 0.03;
     plateGroup.add(innerPlate);
 
+    // إطار النقاط الذهبية
     const dotsCount = 48;
     const dotsRadius = 2.08;
     for (let i = 0; i < dotsCount; i++) {
@@ -387,9 +404,10 @@
       dot.position.set(Math.cos(angle) * dotsRadius, Math.sin(angle) * dotsRadius, 0.08);
       plateGroup.add(dot);
     }
+    
     mainSetGroup.add(plateGroup);
 
-    // 2. الشوكة
+    // 2. بناء الشوكة الذهبية على اليسار
     const forkGroup = new THREE.Group();
     const forkHandleGeo = new THREE.CylinderGeometry(0.06, 0.03, 2.5, 16);
     const forkHandle = new THREE.Mesh(forkHandleGeo, goldMaterial);
@@ -407,10 +425,11 @@
       prong.position.set(-0.13 + (i * 0.088), 1.25, 0);
       forkGroup.add(prong);
     }
+    
     forkGroup.position.set(-2.8, 0, 0);
     mainSetGroup.add(forkGroup);
 
-    // 3. السكينة
+    // 3. بناء السكينة الذهبية على اليمين
     const knifeGroup = new THREE.Group();
     const knifeHandleGeo = new THREE.CylinderGeometry(0.06, 0.03, 2.5, 16);
     const knifeHandle = new THREE.Mesh(knifeHandleGeo, goldMaterial);
@@ -435,7 +454,7 @@
 
     scene.add(mainSetGroup);
 
-    // إضاءة
+    // --- إضاءة دافئة لإبراز اللمعان الذهبي ---
     const ambientLight = new THREE.AmbientLight(0xfff5e6, 1.2);
     scene.add(ambientLight);
 
@@ -447,33 +466,17 @@
     sideLight.position.set(-5, 2, 5);
     scene.add(sideLight);
 
-    // دالة التكيف التلقائي مع شاشات الهواتف
-    function updateLayout() {
-      const aspect = window.innerWidth / window.innerHeight;
-      camera.aspect = aspect;
-      camera.updateProjectionMatrix();
-
-      if (window.innerWidth < 600) {
-        // تصغير الحجم وإرجاع الكاميرا للوراء في الهاتف
-        const scaleFactor = Math.max(0.55, window.innerWidth / 600 * 0.75);
-        mainSetGroup.scale.set(scaleFactor, scaleFactor, scaleFactor);
-        camera.position.z = 10;
-      } else {
-        mainSetGroup.scale.set(1, 1, 1);
-        camera.position.z = 8.5;
-      }
-
-      renderer.setSize(window.innerWidth, window.innerHeight);
-    }
-
-    window.addEventListener('resize', updateLayout);
-    updateLayout();
-
     function animate() {
       requestAnimationFrame(animate);
       renderer.render(scene, camera);
     }
     animate();
+
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
 
     renderMenu();
   </script>
