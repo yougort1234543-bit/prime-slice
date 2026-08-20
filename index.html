@@ -11,8 +11,8 @@
     :root {
       --bg-color: #0b0c10;
       --gold: #d4af37;
-      /* تم إزالة العتمة والضبابية لتصبح خلفية البطاقة أصفى وأوضح تماماً */
-      --card-bg: rgba(25, 27, 32, 0.15);
+      /* خلفية شفافة بسيطة */
+      --card-bg: rgba(25, 27, 32, 0.25);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; }
@@ -50,12 +50,12 @@
     
     .btn-3d:active { transform: translateY(8px) scale(1) !important; box-shadow: 0 0 0 #8b6508 !important; }
 
-    /* تم إلغاء تأثير الـ Blur كلياً لرؤية الشوكة بنقاء تام */
+    /* ضبابية بسيطة جداً (4px) لرؤية العناصر بالخلف بوضوح مع إضافة لمسة جمالية */
     .page { 
       display: none; 
       background: var(--card-bg); 
-      backdrop-filter: none; 
-      -webkit-backdrop-filter: none;
+      backdrop-filter: blur(4px); 
+      -webkit-backdrop-filter: blur(4px);
       padding: 25px; 
       border-radius: 20px; 
       border: 1px solid var(--gold); 
