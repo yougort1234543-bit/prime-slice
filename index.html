@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+١١<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
@@ -32,7 +32,7 @@
 
     .contact-info { color: #888; margin-bottom: 20px; font-size: 0.95rem; }
 
-    .home-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; perspective: 1000px; margin-bottom: 30px; }
+    .home-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; perspective: 1000px; margin-bottom: 20px; }
     
     .btn-3d {
       padding: 25px 15px;
@@ -49,6 +49,81 @@
     }
     
     .btn-3d:active { transform: translateY(8px) scale(1) !important; box-shadow: 0 0 0 #8b6508 !important; }
+
+    .btn-exit {
+      background: linear-gradient(to bottom, #d9534f, #c9302c);
+      color: #fff;
+      box-shadow: 0 6px 0 #ac2925;
+      padding: 12px 25px;
+      font-size: 1rem;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s;
+      margin-bottom: 20px;
+    }
+
+    .btn-exit:hover { background: #c9302c; }
+
+    /* Modal / نافذة التأكيد */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(5px);
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-overlay.active { display: flex; }
+
+    .modal-box {
+      background: rgba(25, 27, 32, 0.95);
+      border: 1px solid var(--gold);
+      border-radius: 15px;
+      padding: 25px;
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.8);
+      animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    @keyframes popIn {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .modal-box p {
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+      color: #fff;
+    }
+
+    .modal-buttons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+
+    .modal-btn {
+      padding: 10px 25px;
+      font-size: 1rem;
+      font-weight: bold;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .modal-btn-confirm { background: var(--gold); color: #000; }
+    .modal-btn-confirm:hover { background: #b8860b; }
+
+    .modal-btn-cancel { background: rgba(255, 255, 255, 0.1); color: #fff; border: 1px solid #555; }
+    .modal-btn-cancel:hover { background: rgba(255, 255, 255, 0.2); }
 
     /* ضبابية بسيطة جداً (4px) لرؤية العناصر بالخلف بوضوح مع إضافة لمسة جمالية */
     .page { 
@@ -209,12 +284,25 @@
         <button class="btn-3d" id="btn-crepe" data-hover="false" onclick="showPage('crepe')">🌯 الكريب</button>
         <button class="btn-3d" id="btn-drinks" data-hover="false" onclick="showPage('drinks')">🍹 المشروبات</button>
       </div>
+
+      <button class="btn-exit" id="btn-exit" onclick="openExitModal()">🚪 خروج</button>
     </div>
 
     <div id="pizza" class="page"><h2 id="title-pizza">🍕 قائمة البيتزا</h2><div id="pizza-list" class="menu-grid"></div><button class="back-btn back-txt" onclick="showPage('home')">العودة</button></div>
     <div id="shawarma" class="page"><h2 id="title-shawarma">🥙 قائمة الشاورما</h2><div id="shawarma-list" class="menu-grid"></div><button class="back-btn back-txt" onclick="showPage('home')">العودة</button></div>
     <div id="crepe" class="page"><h2 id="title-crepe">🌯 قائمة الكريب</h2><div id="crepe-list" class="menu-grid"></div><button class="back-btn back-txt" onclick="showPage('home')">العودة</button></div>
     <div id="drinks" class="page"><h2 id="title-drinks">🍹 المشروبات</h2><div id="drinks-list" class="menu-grid"></div><button class="back-btn back-txt" onclick="showPage('home')">العودة</button></div>
+  </div>
+
+  <!-- Exit Modal -->
+  <div class="modal-overlay" id="exit-modal">
+    <div class="modal-box">
+      <p id="modal-text">هل انت تريد الخروج من موقع PRIME-SLICE؟</p>
+      <div class="modal-buttons">
+        <button class="modal-btn modal-btn-confirm" id="btn-yes" onclick="confirmExit()">نعم</button>
+        <button class="modal-btn modal-btn-cancel" id="btn-no" onclick="closeExitModal()">لا</button>
+      </div>
+    </div>
   </div>
 
   <div class="lang-switcher">
@@ -243,7 +331,11 @@
         crepeTitle: "🌯 قائمة الكريب",
         drinksTitle: "🍹 المشروبات",
         back: "العودة",
-        currency: "ج.م"
+        currency: "ج.م",
+        exitBtn: "🚪 خروج",
+        exitConfirm: "هل انت تريد الخروج من موقع PRIME-SLICE؟",
+        yes: "نعم",
+        no: "لا"
       },
       en: {
         sub: "Welcome to the premium tasting experience",
@@ -259,7 +351,11 @@
         crepeTitle: "🌯 Crepe Menu",
         drinksTitle: "🍹 Drinks Menu",
         back: "Back",
-        currency: "EGP"
+        currency: "EGP",
+        exitBtn: "🚪 Exit",
+        exitConfirm: "Do you want to exit PRIME-SLICE website?",
+        yes: "Yes",
+        no: "No"
       }
     };
 
@@ -396,6 +492,18 @@
       });
     }
 
+    function openExitModal() {
+      document.getElementById('exit-modal').classList.add('active');
+    }
+
+    function closeExitModal() {
+      document.getElementById('exit-modal').classList.remove('active');
+    }
+
+    function confirmExit() {
+      window.location.href = "about:blank";
+    }
+
     function setLanguage(lang) {
       currentLang = lang;
       document.documentElement.lang = lang;
@@ -414,6 +522,11 @@
       document.getElementById('title-shawarma').innerText = translations[lang].shawarmaTitle;
       document.getElementById('title-crepe').innerText = translations[lang].crepeTitle;
       document.getElementById('title-drinks').innerText = translations[lang].drinksTitle;
+
+      document.getElementById('btn-exit').innerText = translations[lang].exitBtn;
+      document.getElementById('modal-text').innerText = translations[lang].exitConfirm;
+      document.getElementById('btn-yes').innerText = translations[lang].yes;
+      document.getElementById('btn-no').innerText = translations[lang].no;
 
       document.querySelectorAll('.back-txt').forEach(btn => btn.innerText = translations[lang].back);
 
