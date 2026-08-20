@@ -24,7 +24,6 @@
     .hero h1 { font-size: 3rem; color: var(--gold); margin-bottom: 5px; letter-spacing: 2px; }
     .hero p { color: #aaa; font-size: 1.1rem; }
 
-    /* نظام النجوم */
     .star-rating { cursor: pointer; font-size: 30px; display: flex; justify-content: center; direction: ltr; margin: 10px 0; }
     .star { color: #555; transition: color 0.2s; }
     .star.active { color: var(--gold); }
@@ -58,7 +57,6 @@
     .back-btn { margin-top: 20px; background: transparent; color: var(--gold); border: 1px solid var(--gold); padding: 10px 25px; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; transition: 0.3s; }
     .back-btn:hover { background: var(--gold); color: #000; }
     
-    /* شبكة عرض الأصناف (Grid System) */
     .menu-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
@@ -66,7 +64,6 @@
       margin-bottom: 10px;
     }
 
-    /* كارت الصنف بمظهر جديد (الصورة فوق والاسم تحت) */
     .menu-card {
       background: rgba(255, 255, 255, 0.04);
       border: 1px solid rgba(212, 175, 55, 0.2);
@@ -84,7 +81,6 @@
       transform: translateY(-5px);
     }
 
-    /* تكبير الصورة وتوسيطها */
     .item-img-large {
       width: 140px;
       height: 140px;
@@ -111,7 +107,6 @@
     .page::-webkit-scrollbar { width: 6px; }
     .page::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 10px; }
 
-    /* شريط اختيار اللغة في الأسفل */
     .lang-switcher {
       position: fixed;
       bottom: 35px;
@@ -161,7 +156,6 @@
         <p id="txt-sub">مرحباً بكم في تجربة التذوق الفاخرة</p>
       </div>
       
-      <!-- نظام التقييم -->
       <div class="star-rating" id="star-rating">
         <span class="star" data-value="1">★</span>
         <span class="star" data-value="2">★</span>
@@ -181,14 +175,12 @@
       </div>
     </div>
 
-    <!-- الصفحات -->
     <div id="pizza" class="page"><h2 id="title-pizza">🍕 قائمة البيتزا</h2><div id="pizza-list" class="menu-grid"></div><button class="back-btn back-txt" onclick="showPage('home')">العودة</button></div>
     <div id="shawarma" class="page"><h2 id="title-shawarma">🥙 قائمة الشاورما</h2><div id="shawarma-list" class="menu-grid"></div><button class="back-btn back-txt" onclick="showPage('home')">العودة</button></div>
     <div id="crepe" class="page"><h2 id="title-crepe">🌯 قائمة الكريب</h2><div id="crepe-list" class="menu-grid"></div><button class="back-btn back-txt" onclick="showPage('home')">العودة</button></div>
     <div id="drinks" class="page"><h2 id="title-drinks">🍹 المشروبات</h2><div id="drinks-list" class="menu-grid"></div><button class="back-btn back-txt" onclick="showPage('home')">العودة</button></div>
   </div>
 
-  <!-- أزرار التبديل بين اللغتين -->
   <div class="lang-switcher">
     <button class="lang-btn active" id="btn-ar" onclick="setLanguage('ar')">Ar</button>
     <button class="lang-btn" id="btn-en" onclick="setLanguage('en')">En</button>
@@ -233,8 +225,6 @@
       }
     };
 
-    const defaultImg = "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=500";
-
     const menuData = {
       pizza: [
         { name: {ar: "مارجريتا إيطالي", en: "Italian Margherita"}, price: 120, img: "https://images.unsplash.com/photo-1604382354936-07c5d9983bd3?w=500" },
@@ -259,70 +249,70 @@
         { name: {ar: "سبايسي إنفيرنو", en: "Spicy Inferno"}, price: 190, img: "https://images.unsplash.com/photo-1601924582970-9238bcb22554?w=500" }
       ],
       shawarma: [
-        { name: {ar: "شاورما دجاج صاج", en: "Saj Chicken Shawarma"}, price: 70, img: defaultImg },
-        { name: {ar: "شاورما لحم صاج", en: "Saj Beef Shawarma"}, price: 90, img: defaultImg },
-        { name: {ar: "وجبة عربي دجاج", en: "Arabic Chicken Meal"}, price: 110, img: defaultImg },
-        { name: {ar: "وجبة عربي لحم", en: "Arabic Beef Meal"}, price: 130, img: defaultImg },
-        { name: {ar: "فتة دجاج", en: "Chicken Fatteh"}, price: 95, img: defaultImg },
-        { name: {ar: "فتة لحم", en: "Beef Fatteh"}, price: 115, img: defaultImg },
-        { name: {ar: "فتة ميكس", en: "Mix Fatteh"}, price: 125, img: defaultImg },
-        { name: {ar: "موتزاريلا دجاج", en: "Mozzarella Chicken"}, price: 85, img: defaultImg },
-        { name: {ar: "ساندوتش دبل دجاج", en: "Double Chicken Sandwich"}, price: 100, img: defaultImg },
-        { name: {ar: "ساندوتش دبل لحم", en: "Double Beef Sandwich"}, price: 120, img: defaultImg },
-        { name: {ar: "بوكس عائلي", en: "Family Box"}, price: 250, img: defaultImg },
-        { name: {ar: "فرانسيسكو دجاج", en: "Francisco Chicken"}, price: 80, img: defaultImg },
-        { name: {ar: "صاروخ كينج", en: "King Rocket"}, price: 105, img: defaultImg },
-        { name: {ar: "لحم بدبس الرمان", en: "Beef with Pomegranate Molasses"}, price: 95, img: defaultImg },
-        { name: {ar: "إكسترا ثومية", en: "Extra Garlic Dip"}, price: 75, img: defaultImg },
-        { name: {ar: "طبق دجاج فرنسي", en: "French Chicken Platter"}, price: 140, img: defaultImg },
-        { name: {ar: "طبق لحم فرنسي", en: "French Beef Platter"}, price: 160, img: defaultImg },
-        { name: {ar: "شاورما كيتو", en: "Keto Shawarma"}, price: 85, img: defaultImg },
-        { name: {ar: "سبايسي بركان", en: "Spicy Volcano"}, price: 80, img: defaultImg },
-        { name: {ar: "وجبة الميكس الملكية", en: "Royal Mix Meal"}, price: 170, img: defaultImg }
+        { name: {ar: "شاورما دجاج صاج", en: "Saj Chicken Shawarma"}, price: 70, img: "https://images.unsplash.com/photo-1561651823-34feb02250e4?w=500" },
+        { name: {ar: "شاورما لحم صاج", en: "Saj Beef Shawarma"}, price: 90, img: "https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=500" },
+        { name: {ar: "وجبة عربي دجاج", en: "Arabic Chicken Meal"}, price: 110, img: "https://images.unsplash.com/photo-1633321702518-7feccafb94d5?w=500" },
+        { name: {ar: "وجبة عربي لحم", en: "Arabic Beef Meal"}, price: 130, img: "https://images.unsplash.com/photo-1541544741938-0af808871cc0?w=500" },
+        { name: {ar: "فتة دجاج", en: "Chicken Fatteh"}, price: 95, img: "https://images.unsplash.com/photo-1544025162-d76694265947?w=500" },
+        { name: {ar: "فتة لحم", en: "Beef Fatteh"}, price: 115, img: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=500" },
+        { name: {ar: "فتة ميكس", en: "Mix Fatteh"}, price: 125, img: "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=500" },
+        { name: {ar: "موتزاريلا دجاج", en: "Mozzarella Chicken"}, price: 85, img: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=500" },
+        { name: {ar: "ساندوتش دبل دجاج", en: "Double Chicken Sandwich"}, price: 100, img: "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?w=500" },
+        { name: {ar: "ساندوتش دبل لحم", en: "Double Beef Sandwich"}, price: 120, img: "https://images.unsplash.com/photo-1509722747041-616f39b57569?w=500" },
+        { name: {ar: "بوكس عائلي", en: "Family Box"}, price: 250, img: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=500" },
+        { name: {ar: "فرانسيسكو دجاج", en: "Francisco Chicken"}, price: 80, img: "https://images.unsplash.com/photo-1625813506062-0aeb1d7a094b?w=500" },
+        { name: {ar: "صاروخ كينج", en: "King Rocket"}, price: 105, img: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=500" },
+        { name: {ar: "لحم بدبس الرمان", en: "Beef with Pomegranate Molasses"}, price: 95, img: "https://images.unsplash.com/photo-1603064752734-4c48eff53d05?w=500" },
+        { name: {ar: "إكسترا ثومية", en: "Extra Garlic Dip"}, price: 75, img: "https://images.unsplash.com/photo-1571091718767-18b5b1457add?w=500" },
+        { name: {ar: "طبق دجاج فرنسي", en: "French Chicken Platter"}, price: 140, img: "https://images.unsplash.com/photo-1532550907401-a500c9a57435?w=500" },
+        { name: {ar: "طبق لحم فرنسي", en: "French Beef Platter"}, price: 160, img: "https://images.unsplash.com/photo-1544025162-d76694265947?w=500" },
+        { name: {ar: "شاورما كيتو", en: "Keto Shawarma"}, price: 85, img: "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=500" },
+        { name: {ar: "سبايسي بركان", en: "Spicy Volcano"}, price: 80, img: "https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=500" },
+        { name: {ar: "وجبة الميكس الملكية", en: "Royal Mix Meal"}, price: 170, img: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=500" }
       ],
       crepe: [
-        { name: {ar: "كريب بانيه", en: "Pane Crepe"}, price: 75, img: defaultImg },
-        { name: {ar: "كريب زنجر حار", en: "Spicy Zinger Crepe"}, price: 85, img: defaultImg },
-        { name: {ar: "كريب ميكس أجبان", en: "Mix Cheese Crepe"}, price: 70, img: defaultImg },
-        { name: {ar: "كريب هوت دوج", en: "Hot Dog Crepe"}, price: 65, img: defaultImg },
-        { name: {ar: "كريب تونة مايو", en: "Tuna Mayo Crepe"}, price: 80, img: defaultImg },
-        { name: {ar: "كريب سوسيس", en: "Sausage Crepe"}, price: 70, img: defaultImg },
-        { name: {ar: "كريب شاورما دجاج", en: "Chicken Shawarma Crepe"}, price: 85, img: defaultImg },
-        { name: {ar: "كريب شاورما لحم", en: "Beef Shawarma Crepe"}, price: 95, img: defaultImg },
-        { name: {ar: "كريب كرسبي", en: "Crispy Crepe"}, price: 80, img: defaultImg },
-        { name: {ar: "كريب سي فود", en: "Seafood Crepe"}, price: 110, img: defaultImg },
-        { name: {ar: "كريب بطاطس", en: "Fries Crepe"}, price: 50, img: defaultImg },
-        { name: {ar: "كريب كبدة", en: "Liver Crepe"}, price: 65, img: defaultImg },
-        { name: {ar: "كريب نوتيلا موز", en: "Nutella Banana Crepe"}, price: 60, img: defaultImg },
-        { name: {ar: "كريب لوتس", en: "Lotus Crepe"}, price: 70, img: defaultImg },
-        { name: {ar: "كريب فراولة شوكو", en: "Strawberry Choco Crepe"}, price: 65, img: defaultImg },
-        { name: {ar: "كريب أوريو", en: "Oreo Crepe"}, price: 55, img: defaultImg },
-        { name: {ar: "ميكس شوكولاتة", en: "Mix Chocolate Crepe"}, price: 75, img: defaultImg },
-        { name: {ar: "عسل ومكسرات", en: "Honey & Nuts Crepe"}, price: 70, img: defaultImg },
-        { name: {ar: "كينج شوكولاتة", en: "King Chocolate Crepe"}, price: 80, img: defaultImg },
-        { name: {ar: "كريب سوبريم خاص", en: "Special Supreme Crepe"}, price: 120, img: defaultImg }
+        { name: {ar: "كريب بانيه", en: "Pane Crepe"}, price: 75, img: "https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?w=500" },
+        { name: {ar: "كريب زنجر حار", en: "Spicy Zinger Crepe"}, price: 85, img: "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?w=500" },
+        { name: {ar: "كريب ميكس أجبان", en: "Mix Cheese Crepe"}, price: 70, img: "https://images.unsplash.com/photo-1585325701165-351af916e581?w=500" },
+        { name: {ar: "كريب هوت دوج", en: "Hot Dog Crepe"}, price: 65, img: "https://images.unsplash.com/photo-1619740455993-9e612b1af08a?w=500" },
+        { name: {ar: "كريب تونة مايو", en: "Tuna Mayo Crepe"}, price: 80, img: "https://images.unsplash.com/photo-1594007654729-407eedc4be65?w=500" },
+        { name: {ar: "كريب سوسيس", en: "Sausage Crepe"}, price: 70, img: "https://images.unsplash.com/photo-1541745537411-b8046dc6d66c?w=500" },
+        { name: {ar: "كريب شاورما دجاج", en: "Chicken Shawarma Crepe"}, price: 85, img: "https://images.unsplash.com/photo-1561651823-34feb02250e4?w=500" },
+        { name: {ar: "كريب شاورما لحم", en: "Beef Shawarma Crepe"}, price: 95, img: "https://images.unsplash.com/photo-1529006557810-274b9b2fc783?w=500" },
+        { name: {ar: "كريب كرسبي", en: "Crispy Crepe"}, price: 80, img: "https://images.unsplash.com/photo-1562967914-608f82629710?w=500" },
+        { name: {ar: "كريب سي فود", en: "Seafood Crepe"}, price: 110, img: "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=500" },
+        { name: {ar: "كريب بطاطس", en: "Fries Crepe"}, price: 50, img: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=500" },
+        { name: {ar: "كريب كبدة", en: "Liver Crepe"}, price: 65, img: "https://images.unsplash.com/photo-1544025162-d76694265947?w=500" },
+        { name: {ar: "كريب نوتيلا موز", en: "Nutella Banana Crepe"}, price: 60, img: "https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?w=500" },
+        { name: {ar: "كريب لوتس", en: "Lotus Crepe"}, price: 70, img: "https://images.unsplash.com/photo-1587314168485-3236d6710814?w=500" },
+        { name: {ar: "كريب فراولة شوكو", en: "Strawberry Choco Crepe"}, price: 65, img: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=500" },
+        { name: {ar: "كريب أوريو", en: "Oreo Crepe"}, price: 55, img: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=500" },
+        { name: {ar: "ميكس شوكولاتة", en: "Mix Chocolate Crepe"}, price: 75, img: "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=500" },
+        { name: {ar: "عسل ومكسرات", en: "Honey & Nuts Crepe"}, price: 70, img: "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=500" },
+        { name: {ar: "كينج شوكولاتة", en: "King Chocolate Crepe"}, price: 80, img: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=500" },
+        { name: {ar: "كريب سوبريم خاص", en: "Special Supreme Crepe"}, price: 120, img: "https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=500" }
       ],
       drinks: [
-        { name: {ar: "مانجو فريش", en: "Fresh Mango"}, price: 45, img: defaultImg },
-        { name: {ar: "فراولة بلدي", en: "Fresh Strawberry"}, price: 40, img: defaultImg },
-        { name: {ar: "جوافة لبن", en: "Guava with Milk"}, price: 35, img: defaultImg },
-        { name: {ar: "كيوي وموز", en: "Kiwi Banana"}, price: 50, img: defaultImg },
-        { name: {ar: "ليمون نعناع", en: "Lemon Mint"}, price: 30, img: defaultImg },
-        { name: {ar: "كوكتيل استوائي", en: "Tropical Cocktail"}, price: 55, img: defaultImg },
-        { name: {ar: "آيس كريم فانيليا", en: "Vanilla Ice Cream"}, price: 40, img: defaultImg },
-        { name: {ar: "آيس كريم شوكو", en: "Choco Ice Cream"}, price: 40, img: defaultImg },
-        { name: {ar: "آيس كريم أوريو", en: "Oreo Ice Cream"}, price: 50, img: defaultImg },
-        { name: {ar: "ميلك شيك كراميل", en: "Caramel Milkshake"}, price: 55, img: defaultImg },
-        { name: {ar: "ميلك شيك توت", en: "Berry Milkshake"}, price: 55, img: defaultImg },
-        { name: {ar: "موهيتو بلو", en: "Blue Mojito"}, price: 45, img: defaultImg },
-        { name: {ar: "موهيتو رمان", en: "Pomegranate Mojito"}, price: 45, img: defaultImg },
-        { name: {ar: "برتقال فريش", en: "Fresh Orange"}, price: 35, img: defaultImg },
-        { name: {ar: "أناناس فريش", en: "Fresh Pineapple"}, price: 50, img: defaultImg },
-        { name: {ar: "أفوكادو عسل", en: "Avocado with Honey"}, price: 70, img: defaultImg },
-        { name: {ar: "آيس كافيه", en: "Iced Coffee"}, price: 45, img: defaultImg },
-        { name: {ar: "سموذي بطيخ", en: "Watermelon Smoothie"}, price: 40, img: defaultImg },
-        { name: {ar: "تشيز كيك مثلج", en: "Iced Cheesecake"}, price: 60, img: defaultImg },
-        { name: {ar: "كوكتيل الملوكي", en: "Royal Mix Cocktail"}, price: 75, img: defaultImg }
+        { name: {ar: "مانجو فريش", en: "Fresh Mango"}, price: 45, img: "https://images.unsplash.com/photo-1546173159-315724a31696?w=500" },
+        { name: {ar: "فراولة بلدي", en: "Fresh Strawberry"}, price: 40, img: "https://images.unsplash.com/photo-1553530666-ba11a7da3888?w=500" },
+        { name: {ar: "جوافة لبن", en: "Guava with Milk"}, price: 35, img: "https://images.unsplash.com/photo-1553530666-ba11a7da3888?w=500" },
+        { name: {ar: "كيوي وموز", en: "Kiwi Banana"}, price: 50, img: "https://images.unsplash.com/photo-1610970881699-44a5587cabec?w=500" },
+        { name: {ar: "ليمون نعناع", en: "Lemon Mint"}, price: 30, img: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=500" },
+        { name: {ar: "كوكتيل استوائي", en: "Tropical Cocktail"}, price: 55, img: "https://images.unsplash.com/photo-1536935338788-846bb9981813?w=500" },
+        { name: {ar: "آيس كريم فانيليا", en: "Vanilla Ice Cream"}, price: 40, img: "https://images.unsplash.com/photo-1570197788417-0e82375c9371?w=500" },
+        { name: {ar: "آيس كريم شوكو", en: "Choco Ice Cream"}, price: 40, img: "https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=500" },
+        { name: {ar: "آيس كريم أوريو", en: "Oreo Ice Cream"}, price: 50, img: "https://images.unsplash.com/photo-1580915411954-282cb1b0d780?w=500" },
+        { name: {ar: "ميلك شيك كراميل", en: "Caramel Milkshake"}, price: 55, img: "https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=500" },
+        { name: {ar: "ميلك شيك توت", en: "Berry Milkshake"}, price: 55, img: "https://images.unsplash.com/photo-1553530666-ba11a7da3888?w=500" },
+        { name: {ar: "موهيتو بلو", en: "Blue Mojito"}, price: 45, img: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=500" },
+        { name: {ar: "موهيتو رمان", en: "Pomegranate Mojito"}, price: 45, img: "https://images.unsplash.com/photo-1536935338788-846bb9981813?w=500" },
+        { name: {ar: "برتقال فريش", en: "Fresh Orange"}, price: 35, img: "https://images.unsplash.com/photo-1613478223719-2ab802602423?w=500" },
+        { name: {ar: "أناناس فريش", en: "Fresh Pineapple"}, price: 50, img: "https://images.unsplash.com/photo-1525385133512-2f3bdd039054?w=500" },
+        { name: {ar: "أفوكادو عسل", en: "Avocado with Honey"}, price: 70, img: "https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?w=500" },
+        { name: {ar: "آيس كافيه", en: "Iced Coffee"}, price: 45, img: "https://images.unsplash.com/photo-1517701604599-bb29b565090c?w=500" },
+        { name: {ar: "سموذي بطيخ", en: "Watermelon Smoothie"}, price: 40, img: "https://images.unsplash.com/photo-1589733955941-5eeaf752f6dd?w=500" },
+        { name: {ar: "تشيز كيك مثلج", en: "Iced Cheesecake"}, price: 60, img: "https://images.unsplash.com/photo-1533134242443-d4fd215305ad?w=500" },
+        { name: {ar: "كوكتيل الملوكي", en: "Royal Mix Cocktail"}, price: 75, img: "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=500" }
       ]
     };
 
@@ -349,7 +339,6 @@
       document.getElementById('btn-ar').classList.toggle('active', lang === 'ar');
       document.getElementById('btn-en').classList.toggle('active', lang === 'en');
 
-      // تحديث النصوص
       document.getElementById('txt-sub').innerText = translations[lang].sub;
       document.getElementById('btn-pizza').innerText = translations[lang].pizzaBtn;
       document.getElementById('btn-shawarma').innerText = translations[lang].shawarmaBtn;
@@ -368,7 +357,6 @@
       renderMenu();
     }
 
-    // كود التقييم
     document.querySelectorAll('.star').forEach(star => {
       star.addEventListener('click', function() {
         currentRating = this.getAttribute('data-value');
@@ -414,7 +402,6 @@
     window.addEventListener('mousemove', handleMove);
     window.addEventListener('touchmove', handleMove);
 
-    // Three.js Background
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
@@ -433,7 +420,6 @@
     }
     animate();
 
-    // تشغيل القائمة أول مرة
     renderMenu();
   </script>
 </body>
